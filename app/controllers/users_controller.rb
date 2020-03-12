@@ -1,10 +1,9 @@
 # Provides actions related to users.
 class UsersController < ApplicationController
-  skip_before_action :authenticate_request
+  skip_before_action :authenticate_request, except: :info
 
   def signup
     user = User.create(params.permit(:email, :password, :name))
-
     unless user.persisted?
       return render json: {
         error: 'Failed to save the user.', details: user.errors.messages
@@ -16,6 +15,10 @@ class UsersController < ApplicationController
 
   def auth
     perform_auth_command
+  end
+
+  def info
+    render json: { message: 'Ok.', user: @current_user.info }
   end
 
   private

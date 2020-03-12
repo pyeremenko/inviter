@@ -4,4 +4,8 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
 
   has_secure_password
+
+  def info
+    { name: name, email: email }
+  end
 end
