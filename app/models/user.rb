@@ -4,8 +4,9 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
 
   has_secure_password
+  has_one :invite
 
-  def info
+  def to_h
     { name: name, email: email }
   end
 end

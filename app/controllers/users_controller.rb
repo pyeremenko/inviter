@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   end
 
   def info
-    render json: { message: 'Ok.', user: @current_user.info }
+    render json: { message: 'Ok.', user: @current_user.to_h }
   end
 
   private

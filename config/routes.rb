@@ -4,4 +4,6 @@ Rails.application.routes.draw do
   post 'login', to: 'users#auth'
   post 'signup', to: 'users#signup'
   get 'info', to: 'users#info'
+
+  resource :invite, only: :show
 end
