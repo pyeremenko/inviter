@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   post 'signup', to: 'users#signup'
   get 'info', to: 'users#info'
 
-  resource :invite, only: :show
+  get 'invite', to: 'invites#show'
+  get 'invite/:code', to: 'invites#apply', as: :apply_invite
 end

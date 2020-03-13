@@ -1,9 +1,8 @@
 # Represents an invitation record.
-#
+# Tracks the amount of registrations by the code of this invite
 class Invite < ApplicationRecord
   GENERATE_RETRIES = 20
   CODE_LENGTH = 5
-  @@increase_usages_semaphore = Mutex.new # rubocop:disable Style/ClassVars
 
   validates :code, presence: true
 
@@ -27,11 +26,5 @@ class Invite < ApplicationRecord
 
   def to_h
     { code: code, used: (usages || 0) }
-  end
-
-  def increase_usages!
-    @@increase_usages_semaphore.synchronize do
-      increment!(:usages)
-    end
   end
 end

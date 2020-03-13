@@ -10,6 +10,14 @@ class UsersController < ApplicationController
       }, status: :bad_request
     end
 
+    invite = Invite.where(code: params[:code]).first
+    if invite.present?
+      command = IncreaseCredits.call(invite, user)
+      unless command.success?
+        logger.error("failed to increase credits: user: #{user.email}")
+      end
+    end
+
     perform_auth_command
   end
 
@@ -25,9 +33,13 @@ class UsersController < ApplicationController
 
   def perform_auth_command
     command = AuthenticateUser.call(params[:email], params[:password])
+    user = User.find_by_email(params[:email])
 
     if command.success?
-      render json: { auth_token: command.result }
+      render json: { 
+        auth_token: command.result,
+        user: user.to_h
+      }
     else
       render json: {
         error: 'Failed to authenticate the user.', details: command.errors

@@ -7,6 +7,6 @@ class User < ApplicationRecord
   has_one :invite
 
   def to_h
-    { name: name, email: email }
+    { name: name, email: email, credits: credits.to_i }
   end
 end
