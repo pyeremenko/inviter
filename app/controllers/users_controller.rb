@@ -13,9 +13,7 @@ class UsersController < ApplicationController
     invite = Invite.where(code: params[:code]).first
     if invite.present?
       command = IncreaseCredits.call(invite, user)
-      unless command.success?
-        logger.error("failed to increase credits: user: #{user.email}")
-      end
+      logger.error("failed to increase credits: user: #{user.email}") unless command.success?
     end
 
     perform_auth_command
@@ -26,7 +24,7 @@ class UsersController < ApplicationController
   end
 
   def info
-    render json: { message: 'Ok.', user: @current_user.to_h }
+    render json: { message: 'Ok', user: @current_user.to_h }
   end
 
   private
@@ -36,7 +34,7 @@ class UsersController < ApplicationController
     user = User.find_by_email(params[:email])
 
     if command.success?
-      render json: { 
+      render json: {
         auth_token: command.result,
         user: user.to_h
       }

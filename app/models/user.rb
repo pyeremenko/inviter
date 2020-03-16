@@ -1,7 +1,7 @@
 # Represents a user registered in the system.
 class User < ApplicationRecord
   validates_presence_of :name, :email, :password_digest
-  validates :email, uniqueness: true
+  validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   has_secure_password
   has_one :invite

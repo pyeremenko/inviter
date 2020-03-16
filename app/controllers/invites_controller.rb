@@ -5,7 +5,7 @@ class InvitesController < ApplicationController
   def show
     invite = @current_user.invite || Invite.generate_for!(@current_user)
     url = apply_invite_url(code: invite.code)
-    render json: { message: 'Ok.', invite: invite.to_h.merge({ url: url }) }
+    render json: { message: 'Ok', invite: invite.to_h.merge({ url: url }) }
   end
 
   def apply
