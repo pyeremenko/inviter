@@ -51,6 +51,14 @@ Settings.app.registration_page=/register
 
 The example above shows that the value should be a relative path.
 
+## Testing
+
+There are a few specs right now. I'm going to add a bit more in the nearest future. To run the existing tests, just execute:
+
+```
+rspec spec
+```
+
 ## API
 
 ### Health Check
