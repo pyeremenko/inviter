@@ -15,7 +15,6 @@
 # Ignore all logfiles and tempfiles.
 log/*
 tmp/*
-bin/*
 
 # Ignore uploaded files in development.
 /storage/*

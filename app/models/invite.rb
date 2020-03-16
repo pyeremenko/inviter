@@ -8,7 +8,7 @@ class Invite < ApplicationRecord
 
   belongs_to :user
 
-  def self.generate!(user)
+  def self.generate_for!(user)
     generator = CodeGenerator.new(CODE_LENGTH)
     GENERATE_RETRIES.times do
       code = generator.generate
